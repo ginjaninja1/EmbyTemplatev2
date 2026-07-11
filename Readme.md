@@ -4,7 +4,7 @@ A standardized, automation-ready repository template for rapidly scaffolding Emb
 
 ## Features
 * **Zero-Configuration Scaffolding**: Uses automated GitHub Actions to rename namespaces, solution files, and projects instantly upon repository creation.
-* **setup.bat**: instantiates a pre-commit in `.git/hooks/` so any commmit with "[bump]" at the END of description increases the the version number in .csproj.
+* **setup.bat**: instantiates a pre-commit in `.git/hooks/` so any commit with "[bump]" at the END of description increases the the version number in .csproj.
 * **Working Plugin with thumbnail**: Ready to compile plugin with thumbnail, pluginui configuration page with autopostback (autosave) and task.
 
 ## How to Instantiate a New Plugin
