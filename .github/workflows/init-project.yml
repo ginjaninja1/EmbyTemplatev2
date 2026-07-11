@@ -1,8 +1,11 @@
 name: Handle Project Initialization
 
-# This runs automatically ONLY when a brand new repository is created from this template
+# Changed to push so it guaranteed fires when the template is instantiated
 on:
-  create:
+  push:
+    branches:
+      - main
+      - master
 
 jobs:
   rename-project:
@@ -32,7 +35,14 @@ jobs:
         # 3. Rename the child source directory to match your new plugin name
         mv src/$OLD_NAME src/$NEW_NAME
 
+        # 4. Self-destruct the script so it never triggers on a normal push again
+        rm -rf .github/workflows/init-project.yml
+
     - name: Commit Changes to Single Source of Truth
-      uses: stefanzweifel/git-auto-commit-action@v5
-      with:
-        commit_message: "automation: dynamically initialized plugin layout to match repository name"
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        
+        git add .
+        git commit -m "automation: dynamically initialized plugin layout to match repository name"
+        git push origin HEAD
