@@ -1,20 +1,23 @@
-## 🚀 Poster to Folder
-Copies Poster.ext to Folder.ext to beautify Windows.  
-To ensure Windows shows images for TV Shows and Movies folders.
+# EmbyTemplatev2
 
+A standardized, automation-ready repository template for rapidly scaffolding Emby Server plugins. 
 
-## ✨ Features
-For all Movies and Tv Shows in scope of library filter;  
-If Emby primary image exists and destination folder.ext does not exist, copy primary image to folder.ext
+## Features
+* **Zero-Configuration Scaffolding**: Uses automated GitHub Actions to rename namespaces, solution files, and projects instantly upon repository creation.
+* **Modern Solution Format**: Powered by the lightweight `.slnx` solution format.
+* **Pre-configured Git Hooks**: Holds native hooks locally inside the `.git/hooks/` folder to maintain coding patterns and repository standards.
 
-## 🛠️ Installation
-Copy dll to plugins folder.  
+## How to Instantiate a New Plugin
 
-## 📖 Usage
-Test on one test path first. Paths require "opt in".  
-Review info and debug logging.  
-Enable paths in the configuration.  
-Configure a trigger for the scheduled task once comfortable.
+This template is completely automated via the cloud. You do not need to use `dotnet new` or run local renaming commands.
 
-## 🤝 Contributing
-For support and feature requests, visit the [Emby Community Forum Thread](https://emby.media/community/topic/148589-plugin-poster-to-folder/).
+1. Click the green **Use this template** button at the top of this GitHub page.
+2. Select **Create a new repository**.
+3. Name your repository using your new plugin's name (e.g., `Emby.Plugin.MyCoolFeature`).
+4. Click **Create repository**.
+
+### What happens in the background:
+GitHub will instantly spin up a cloud action, read your repository name, and automatically update your folder paths, `.csproj`/`.slnx` filenames, and C# namespaces to match perfectly.
+
+5. Open **GitHub Desktop** and clone your brand new repository down to your computer.
+6. Launch the solution file inside `src/` and start coding immediately!
