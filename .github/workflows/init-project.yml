@@ -1,0 +1,38 @@
+name: Handle Project Initialization
+
+# This runs automatically ONLY when a brand new repository is created from this template
+on:
+  create:
+
+jobs:
+  rename-project:
+    if: github.repository != 'ginjaninja1/EmbyTemplatev2'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Dynamically Rename Architecture
+      run: |
+        NEW_NAME="${{ github.event.repository.name }}"
+        OLD_NAME="EmbyTemplatev2"
+        
+        echo "Renaming template from $OLD_NAME to $NEW_NAME..."
+
+        # 1. Find and replace the string inside all code files, solution, and project configs
+        find . -type f -not -path '*/.git/*' -exec sed -i "s/$OLD_NAME/$NEW_NAME/g" {} +
+
+        # 2. Rename the actual project and solution filenames
+        mv src/$OLD_NAME/$OLD_NAME.csproj src/$OLD_NAME/$NEW_NAME.csproj
+        mv src/$OLD_NAME/$OLD_NAME.slnx src/$OLD_NAME/$NEW_NAME.slnx
+
+        # 3. Rename the child source directory to match your new plugin name
+        mv src/$OLD_NAME src/$NEW_NAME
+
+    - name: Commit Changes to Single Source of Truth
+      uses: stefanzweifel/git-auto-commit-action@v5
+      with:
+        commit_message: "automation: dynamically initialized plugin layout to match repository name"
