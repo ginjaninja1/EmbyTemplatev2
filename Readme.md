@@ -6,6 +6,9 @@ A standardized, automation-ready repository template for rapidly scaffolding Emb
 * **Zero-Configuration Scaffolding**: Uses automated GitHub Actions to rename namespaces, solution files, and projects instantly upon repository creation.
 * **setup.bat**: instantiates a pre-commit in `.git/hooks/` so any commit with "[bump]" at the END of description increases the the version number in .csproj.
 * **Working Plugin with thumbnail**: Ready to compile plugin with thumbnail, pluginui configuration page with autopostback (autosave) and task.
+* **launchSettings.json**: Ready to launch emby with breakpoints for debugging
+* **Post Build Event**: Ready to copy compiled code to emby plugins folder in current users %appdata%.
+* **Supress dependancy file**: No value in copying this into plugins folder.
 
 ## How to Instantiate a New Plugin
 
