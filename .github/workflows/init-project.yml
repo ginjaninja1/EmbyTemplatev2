@@ -6,10 +6,12 @@ on:
       - main
       - master
 
-# Needed to push the renamed files back and to delete this workflow file after it runs
+# Needed to push the renamed files back. Note: GITHUB_TOKEN can never modify files under
+# .github/workflows/ regardless of permissions granted here — that requires a PAT with the
+# 'workflow' scope, which isn't viable for a public template (each instantiation lacks the secret).
+# So this workflow does not attempt to delete itself; it self-guards to a no-op on subsequent runs.
 permissions:
   contents: write
-  workflows: write
 
 jobs:
   rename-project:
@@ -60,9 +62,6 @@ jobs:
         mv "src/$OLD_NAME/$OLD_NAME.csproj" "src/$OLD_NAME/$NEW_NAME.csproj"
         mv "src/$OLD_NAME/$OLD_NAME.slnx" "src/$OLD_NAME/$NEW_NAME.slnx"
         mv "src/$OLD_NAME" "src/$NEW_NAME"
-
-        # Self-destruct this script so it never triggers again
-        rm -f .github/workflows/init-project.yml
 
     - name: Commit Changes to Single Source of Truth
       run: |
