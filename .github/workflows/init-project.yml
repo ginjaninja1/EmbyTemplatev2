@@ -1,6 +1,6 @@
 name: Handle Project Initialization
 
-# Changed to push so it guaranteed fires when the template is instantiated
+# Fires when the template is instantiated via the initial repository push
 on:
   push:
     branches:
@@ -25,24 +25,31 @@ jobs:
         
         echo "Renaming template from $OLD_NAME to $NEW_NAME..."
 
-        # 1. Find and replace the string inside all code files, solution, and project configs
+        # 1. Generate a unique lowercase GUID with hyphens (e.g., 6b2e4f17-9a3c-4d8b-8e1f-2c7a5b9d3e60)
+        NEW_GUID=$(uuidgen)
+        echo "Generated New Plugin GUID: $NEW_GUID"
+
+        # 2. Find and replace the template name inside all code files
         find . -type f -not -path '*/.git/*' -exec sed -i "s/$OLD_NAME/$NEW_NAME/g" {} +
 
-        # 2. Rename the actual project and solution filenames
+        # 3. Find and replace your exact GUID placeholder text
+        find . -type f -not -path '*/.git/*' -exec sed -i "s/GENERATE_NEW_GUID_HERE/$NEW_GUID/g" {} +
+
+        # 4. Rename the actual project and solution filenames
         mv src/$OLD_NAME/$OLD_NAME.csproj src/$OLD_NAME/$NEW_NAME.csproj
         mv src/$OLD_NAME/$OLD_NAME.slnx src/$OLD_NAME/$NEW_NAME.slnx
 
-        # 3. Rename the child source directory to match your new plugin name
+        # 5. Rename the child source directory to match your new plugin name
         mv src/$OLD_NAME src/$NEW_NAME
 
-        # 4. Self-destruct the script so it never triggers on a normal push again
-        rm -rf .github/workflows/init-project.yml
+        # 6. Self-destruct the script so it never triggers on a normal push again
+        rm -rf .github/workflows/init-template.yml
 
     - name: Commit Changes to Single Source of Truth
       run: |
         git config --global user.name "github-actions[bot]"
-        git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git config --global user.email "41898282+github-actions[bot]@://github.com"
         
         git add .
-        git commit -m "automation: dynamically initialized plugin layout to match repository name"
+        git commit -m "automation: dynamically initialized plugin layout and generated unique GUID"
         git push origin HEAD
