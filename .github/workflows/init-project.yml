@@ -7,13 +7,15 @@ on:
       - main
       - master
 
+# Fixed: Permissions must be declared at the root level to allow workflow changes
+permissions:
+  contents: write
+  workflows: write
+
 jobs:
   rename-project:
     if: github.repository != 'ginjaninja1/EmbyTemplatev2'
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      workflows: write  # Allows the bot to delete this workflow file safely
 
     steps:
     - name: Checkout Code
