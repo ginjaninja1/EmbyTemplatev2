@@ -52,7 +52,7 @@ namespace EmbyTemplatev2
 
 
         public override Guid Id =>
-            new Guid("1E0C5960-DF19-4C22-AF9A-FA0FDC3EF649");
+            new Guid("GENERATE_NEW_GUID_HERE");
 
 
         public override string Name =>
