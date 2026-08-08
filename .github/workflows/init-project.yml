@@ -47,6 +47,9 @@ jobs:
 
     - name: Commit Changes to Single Source of Truth
       run: |
+        # Mark the workspace as safe to resolve Node 24 strict Git ownership rules
+        git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
         git config --global user.name "github-actions[bot]"
         git config --global user.email "41898282+github-actions[bot]@://github.com"
         
