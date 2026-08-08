@@ -13,6 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      workflows: write  # Allows the bot to delete this workflow file safely
 
     steps:
     - name: Checkout Code
@@ -42,8 +43,8 @@ jobs:
         # 5. Rename the child source directory to match your new plugin name
         mv src/$OLD_NAME src/$NEW_NAME
 
-        # 6. Self-destruct the script so it never triggers on a normal push again
-        rm -rf .github/workflows/init-template.yml
+        # 6. Self-destruct this exact script so it never triggers again
+        rm -rf .github/workflows/init-project.yml
 
     - name: Commit Changes to Single Source of Truth
       run: |
